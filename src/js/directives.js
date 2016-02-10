@@ -1,5 +1,5 @@
 /* DIRECTIVES */
-app.directive('template', function() {
+app.directive('newElement', function() {
     return {
         restrict: 'E',
         transclude: true,
