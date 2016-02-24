@@ -1,15 +1,17 @@
 'use strict'; //make sure it's right
 /* REQUIRE GULP MODULES */
 var gulp = require('gulp');
-var del = require('del');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
+var babel = require('gulp-babel');
+var flatten = require('gulp-flatten');
 var concat = require('gulp-concat');
 var server = require('gulp-express');
-var flatten = require('gulp-flatten');
+var del = require('del');
 //concat javascript and minify to dist/all.min.js
 gulp.task('js', function() {
     return gulp.src('modules/**/*.js')
+    .pipe(babel())
     .pipe(concat('all.min.js'))
     .pipe(uglify({mangle: false}))
     .pipe(gulp.dest('dist'));
@@ -17,21 +19,21 @@ gulp.task('js', function() {
 //processes sass into css
 gulp.task('sass', function () {
     //move files to modules/sass
-    gulp.src('modules/*/sass/*.scss')
+    gulp.src('src/*/sass/*.scss')
     .pipe(flatten())
-    .pipe(gulp.dest('modules/sass'))
+    .pipe(gulp.dest('src/sass'))
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('modules/sass'));
+    .pipe(gulp.dest('src/sass'));
     //concat css and move to dist
 });
 gulp.task('css', function(){
-    gulp.src('modules/sass/*.css')
+    gulp.src('src/sass/*.css')
     .pipe(concat('style.css'))
     .pipe(gulp.dest('dist'));
-    return del(['modules/sass/*ss']);
+    return del(['src/sass/*ss']);
 });
 gulp.task('templates', function() {
-    gulp.src('modules/**/*.html')
+    gulp.src('src/**/*.html')
     .pipe(flatten())
     .pipe(gulp.dest('dist/templates'));
 });
@@ -45,10 +47,10 @@ gulp.task('default', ['js', 'sass', 'css', 'templates', 'server']);
 //the dev task does the same as the default except it watches the folders for changes
 gulp.task('dev', function() {
     server.run(['server.js']);
-    gulp.watch(['modules/**/*.js'], ['js', 'server']);
-    gulp.watch(['modules/*/sass/*.scss'], ['sass', 'server']);
-    gulp.watch(['modules/sass/*.css'], ['css', 'server']);
-    gulp.watch(['dist/index.html', 'modules/**/*.html'], ['templates', 'server']);
+    gulp.watch(['src/**/*.js'], ['js', 'server']);
+    gulp.watch(['src/*/sass/*.scss'], ['sass', 'server']);
+    gulp.watch(['src/sass/*.css'], ['css', 'server']);
+    gulp.watch(['dist/index.html', 'src/**/*.html'], ['templates', 'server']);
 });
 
 /*

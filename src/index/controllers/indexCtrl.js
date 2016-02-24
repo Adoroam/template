@@ -1,5 +1,6 @@
 /* CONTROLLER FOR INDEX */
-app.controller('mainCtrl', ['$scope',/* 'serv', */ function($scope/*, serv*/) {
+app.controller('indexCtrl', ['$scope',/* 'serv', */ function($scope/*, serv*/) {
+    ind = this;
  /* uncomment for blank variable and function */
  /*
     $scope.thing = "value";
@@ -8,7 +9,7 @@ app.controller('mainCtrl', ['$scope',/* 'serv', */ function($scope/*, serv*/) {
     };
 */
 /* uncomment to get data from db (remove comments in controller and service) */
-    /*  
+    /*
     serv.get().then(function(d) {
         if (d.data) {
             $scope.dbinfo = d.data;
@@ -16,4 +17,4 @@ app.controller('mainCtrl', ['$scope',/* 'serv', */ function($scope/*, serv*/) {
         }   else {console.log("nodata");}
     });
 */
-}]);//end mainCtrl
+}]);
