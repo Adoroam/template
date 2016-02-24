@@ -22,7 +22,7 @@ template includes: node, bower, express, mongoose, gulp, sass, css, angular, ang
   - ``` gulp ``` or ``` gulp dev ``` if you want it to keep updating while you're working on it
 - now you should be able to go to ``` localhost ``` in your browser and check it out. when you save any important files, it should auto reload in the browser
 
-###File locations
+###File locations (out of date)
 - ``` dist ``` main files for the website
   - ``` dist/bow ``` bower libraries
   - ``` dist/templates ``` individual templates for your views and navigation
