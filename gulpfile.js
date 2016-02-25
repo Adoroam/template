@@ -10,7 +10,7 @@ var server = require('gulp-express');
 var del = require('del');
 //concat javascript and minify to dist/all.min.js
 gulp.task('js', function() {
-    return gulp.src('modules/**/*.js')
+    return gulp.src('src/**/*.js')
     .pipe(babel())
     .pipe(concat('all.min.js'))
     .pipe(uglify({mangle: false}))
@@ -19,7 +19,7 @@ gulp.task('js', function() {
 //processes sass into css
 gulp.task('sass', function () {
     //move files to modules/sass
-    gulp.src('src/*/sass/*.scss')
+    gulp.src('src/**/*.scss')
     .pipe(flatten())
     .pipe(gulp.dest('src/sass'))
     .pipe(sass().on('error', sass.logError))
@@ -48,7 +48,7 @@ gulp.task('default', ['js', 'sass', 'css', 'templates', 'server']);
 gulp.task('dev', function() {
     server.run(['server.js']);
     gulp.watch(['src/**/*.js'], ['js', 'server']);
-    gulp.watch(['src/*/sass/*.scss'], ['sass', 'server']);
+    gulp.watch(['src/*/*.scss', '!src/sass/*.scss'], ['sass', 'server']);
     gulp.watch(['src/sass/*.css'], ['css', 'server']);
     gulp.watch(['dist/index.html', 'src/**/*.html'], ['templates', 'server']);
 });
