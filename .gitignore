@@ -2,4 +2,3 @@ node_modules
 dist/bow
 dist/style.css
 dist/all.min.js
-src/css/sass/sass.css

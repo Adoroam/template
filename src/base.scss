@@ -1,0 +1,128 @@
+/* COLORS */
+$primary: #00b2f4;
+$secondary: #c8102e;
+$warn: #ff8a00;
+$danger: #c8102e;
+$accent: #474747;
+$light: #d9d9d9;
+
+.white {color: white !important;}
+
+/* FONTS */
+$font-one: 'Raleway', sans-serif;
+$font-two: 'Open Sans', sans-serif;
+
+/* MIXINS */
+@mixin border-radius($radius: 0.5em) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+@mixin transition($input) {
+    -webkit-transition: $input;
+    -moz-transition: $input;
+    transition: $input;
+}
+@mixin transform($x, $y) {
+    -webkit-transform: translate($x, $y);
+    -moz-transform: translate($x, $y);
+    transform: translate($x, $y);
+}
+@mixin linear-gradient($direction, $color-stops...) {
+  // Direction has been omitted and happens to be a color-stop
+  @if is-direction($direction) == false {
+    $color-stops: $direction, $color-stops;
+    $direction: 180deg;
+  }
+
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
+}
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+/* GLOBALS */
+em {color:$accent;}
+strong{color:$warn;}
+small{font-size: 0.8em;}
+// GLOBAL CLASSES
+.center {text-align: center;}
+.ital {font-style: italic;}
+
+/* INDEX */
+html {
+    padding: 0em;
+    margin: 0em;
+    font-family: $font-one;
+    height:100%;
+}
+body {
+    box-sizing: border-box;
+    margin: 0em;
+    padding: 0em;
+    padding-top: 5rem !important;
+    width: 100%;
+}
+a {
+    text-decoration: none ;
+    box-sizing: border-box;
+}
+
+/* IMPORTS */
+@import 'navigation/navigation';
+@import 'home/home';
+@import 'aa/aa';
+@import 'ab/ab';
+
+/* ANIMATIONS */
+
+// ngAnimate
+.ng-enter {
+    animation: ngAnim 0.5s ease;
+}
+.ng-leave {
+    animation: ngAnim 0.5s ease reverse;
+}
+@keyframes ngAnim {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/* @keyframes links {
+    0% {color: white;}
+    100% {color: $purple;border-bottom: 2px dotted $yellow;}
+}
+@keyframes heading {
+    0% {color: $blue;}
+    25% {color: $purple;}
+    50% {color: $pink;}
+    75% {color: $yellow;}
+    100% {color: $green;}
+}
+@keyframes focus {
+    0% {background-color: rgba(200, 200, 200, 0); }
+    50% {background-color: rgba(200, 200, 200, 0.1); }
+    100% {background-color: rgba(200, 200, 200, 0); }
+}*/
+
+/* MEDIA QUERIES */
+/*
+@media only screen and (max-width: 720px) {
+    section {
+        display:block;
+    }
+}  */

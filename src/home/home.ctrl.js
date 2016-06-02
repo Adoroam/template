@@ -1,5 +1,6 @@
-/* CONTROLLER FOR INDEX */
+/* CONTROLLER FOR HOME */
 app.controller('homeCtrl', ['$scope',/* 'serv', */ function($scope/*, serv*/) {
+    home = this;
  /* uncomment for blank variable and function */
  /*
     $scope.thing = "value";

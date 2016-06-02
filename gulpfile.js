@@ -10,7 +10,7 @@ var server = require('gulp-express');
 var del = require('del');
 //concat javascript and minify to dist/all.min.js
 gulp.task('js', function() {
-    return gulp.src('src/**/*.js')
+    return gulp.src(['src/index/app.module.js', 'src/**/*ctrl.js', 'src/**/*.js'])
     .pipe(babel())
     .pipe(concat('all.min.js'))
     .pipe(uglify({mangle: false}))
@@ -18,19 +18,15 @@ gulp.task('js', function() {
 });
 //processes sass into css
 gulp.task('sass', function () {
-    //move files to modules/sass
-    gulp.src('src/**/*.scss')
-    .pipe(flatten())
-    .pipe(gulp.dest('src/sass'))
+    return gulp.src('src/base.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('src/sass'));
-    //concat css and move to dist
+    .pipe(gulp.dest('src'));
 });
-gulp.task('css', function(){
-    gulp.src('src/sass/*.css')
+gulp.task('css', ['sass'], function(){
+    gulp.src('src/base.css')
     .pipe(concat('style.css'))
     .pipe(gulp.dest('dist'));
-    return del(['src/sass/*ss']);
+    return del(['src/**/*.css']);
 });
 gulp.task('templates', function() {
     gulp.src('src/**/*.html')
@@ -42,15 +38,13 @@ gulp.task('server', function(){
     server.run(['server.js']);
 });
 //the default task runs the compilers and starts the server
-gulp.task('default', ['js', 'sass', 'css', 'templates', 'server']);
+gulp.task('default', ['js', 'css', 'templates', 'server']);
 //DEV TASKS
 //the dev task does the same as the default except it watches the folders for changes
-gulp.task('dev', function() {
-    server.run(['server.js']);
-    gulp.watch(['src/**/*.js'], ['js', 'server']);
-    gulp.watch(['src/*/*.scss', '!src/sass/*.scss'], ['sass', 'server']);
-    gulp.watch(['src/sass/*.css'], ['css', 'server']);
-    gulp.watch(['dist/index.html', 'src/**/*.html'], ['templates', 'server']);
+gulp.task('dev',['default'], function() {
+    gulp.watch(['src/**/*.js'], ['js']);
+    gulp.watch(['src/base.scss', 'src/**/*.scss'], ['css']);
+    gulp.watch(['dist/index.html', 'src/**/*.html'], ['templates']);
 });
 
 /*

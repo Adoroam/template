@@ -1,0 +1,12 @@
+<nav role="navigation" ng-controller="navCtrl as nav">
+    <h1 class="hidden-xs">title <span class="white">text</span></h1>
+    <ul class="nav">
+        <li ng-repeat="item in nav.list">
+            <a href="{{item.path}}"
+                ng-click="nav.pathUpdate($index)"
+                ng-class="{active: item.active}">
+                {{item.name}}
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -1,9 +1,7 @@
-/* DIRECTIVES */
-/*app.directive('newElement', function() {
+app.directive('navigation', function() {
     return {
         restrict: 'E',
         transclude: true,
-        templateUrl: 'templates/template.html'
+        templateUrl: 'templates/navigation.html'
     }
 });
-*/

@@ -1,13 +1,15 @@
 /* MODULES TO LOAD */
 var express = require('express');//get express module (starting server)
+var multer = require("multer");
+var upload = multer({ dest: 'dist/img/' });
 var app = express(); //start an instance of express
 var mongoose = require('mongoose'); //get mongoose module (connect to db)
 var bodyParser = require('body-parser');//get body-parser module (create json)
 var cookieParser = require('cookie-parser');//get cookie-parser module (create, edit, delete cookies)
 var fs = require('fs');//get fs module (read/write to filesystem)
 
-/* SET PORT (default for browsers is 80) */
-var port = 80; 
+/* SET PORT (default for browsers is 8003) */
+var port = 80;
 
 /* USE MODULES */
 app.use(cookieParser());// use module for finding cookies
@@ -43,10 +45,15 @@ var Test = mongoose.model('Test', testSchema);
 /* ROUTES */
 //what happens if you run a get request to the main page
 app.get('/', function(req, res) {
-    res.redirect('/');            
+    res.redirect('/');
+});
+app.get('/*', function(req, res) {
+    var pr = req.params["0"];
+    res.redirect('/?in='+pr);
 });
 //what happens if you run a post request to the main page
-app.post('/', function(req, res) {
+app.post('/', upload.single('peanut'), function(req, res) {
+
 //set a cookie
     //res.cookie('cookiename', 'cookievalue');
 
@@ -65,11 +72,11 @@ app.post('/', function(req, res) {
 /*
     newTest.save(function(err, newTest) {
         if (err) return console.log(err);
-        //log the new saved user
+        //log the new saved item
         console.log('saved as:' + newTest);
     });
 */
-    res.redirect('/');            
+    res.redirect('/');
 });
 
 //output the db info as json

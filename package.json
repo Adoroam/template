@@ -23,6 +23,7 @@
     "gulp-flatten": "^0.2.0",
     "gulp-sass": "^2.2.0",
     "gulp-uglify": "^1.5.2",
-    "mongoose": "4.4.0"
+    "mongoose": "4.4.0",
+    "multer": "^1.1.0"
   }
 }
